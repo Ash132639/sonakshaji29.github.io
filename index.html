@@ -3,755 +3,1320 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Strategic Analysis in Action — Canal+, Amazon vs Walmart, IKEA</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Strategic Analysis in Action — My Week 2 Seminar Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Lora:ital,wght@0,400;0,500;1,400&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
   :root {
-    --ink: #0f0e0c;
-    --cream: #f7f3ec;
-    --warm-white: #faf8f4;
-    --rust: #c8412a;
-    --forest: #1e4a32;
-    --gold: #c8992a;
-    --steel: #2b4a6b;
-    --muted: #6b6560;
-    --rule: #d8d0c4;
+    --bg: #f5f3ef;
+    --white: #ffffff;
+    --ink: #1a1916;
+    --mid: #4a4742;
+    --light: #9a9590;
+    --rule: #e2ddd6;
+    --accent1: #e85d3a;   /* warm orange-red */
+    --accent2: #2e6b9e;   /* steel blue */
+    --accent3: #3a8c5c;   /* forest green */
+    --accent4: #c8820a;   /* amber */
+    --highlight: #fff7e6;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  html { scroll-behavior: smooth; }
+
   body {
-    background: var(--warm-white);
+    background: var(--bg);
     color: var(--ink);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 17px;
-    line-height: 1.75;
+    font-family: 'Mulish', sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ── MASTHEAD ── */
-  .masthead {
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(245,243,239,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.85rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--accent1); }
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent1); }
+
+  /* ── HERO ── */
+  .hero {
     background: var(--ink);
-    color: var(--cream);
-    padding: 3rem 2rem 2.5rem;
-    text-align: center;
+    color: white;
+    min-height: 88vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    position: relative;
+  }
+  .hero-left {
+    padding: 5rem 3rem 4rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--accent1);
+    color: white;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.8rem;
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+    width: fit-content;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 .line2 {
+    color: var(--accent1);
+    font-style: italic;
+    font-family: 'Lora', serif;
+    font-weight: 400;
+  }
+  .hero-desc {
+    font-size: 1rem;
+    color: #b0ada8;
+    max-width: 440px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .hero-meta-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #6b6860;
+  }
+  .hero-meta-val {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #d8d5d0;
+  }
+  .hero-right {
     position: relative;
     overflow: hidden;
   }
-  .masthead::before {
+  .hero-right img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.45;
+    filter: grayscale(30%);
+  }
+  .hero-right::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: repeating-linear-gradient(
-      -45deg,
-      transparent,
-      transparent 18px,
-      rgba(255,255,255,0.025) 18px,
-      rgba(255,255,255,0.025) 19px
-    );
+    background: linear-gradient(to right, var(--ink) 0%, transparent 40%);
   }
-  .masthead-kicker {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1rem;
-    position: relative;
-  }
-  .masthead h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.4rem, 6vw, 4.2rem);
-    font-weight: 900;
-    line-height: 1.08;
-    color: var(--cream);
-    position: relative;
-    max-width: 860px;
-    margin: 0 auto 1.2rem;
-  }
-  .masthead h1 em {
-    font-style: italic;
-    color: var(--gold);
-  }
-  .masthead-sub {
-    font-size: 1.05rem;
-    color: #b8b0a4;
-    max-width: 560px;
-    margin: 0 auto;
-    position: relative;
-    font-weight: 300;
-  }
-  .byline {
-    margin-top: 2rem;
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #6b665e;
-    position: relative;
+  .hero-companies {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 2rem;
+    z-index: 3;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-  }
-  .byline span { color: var(--gold); }
-
-  /* ── LAYOUT ── */
-  .container {
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
-
-  /* ── INTRO PULL ── */
-  .intro {
-    padding: 4rem 1.5rem 3rem;
-    max-width: 780px;
-    margin: 0 auto;
-  }
-  .intro-lede {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.25rem, 2.5vw, 1.6rem);
-    font-weight: 400;
-    font-style: italic;
-    line-height: 1.5;
-    color: var(--ink);
-    border-left: 3px solid var(--gold);
-    padding-left: 1.5rem;
-    margin-bottom: 2rem;
-  }
-  .intro p {
-    color: #3a3530;
-    font-weight: 300;
-  }
-
-  /* ── SECTION STRUCTURE ── */
-  .article-section {
-    padding: 3.5rem 1.5rem;
-    max-width: 780px;
-    margin: 0 auto;
-  }
-  .article-section + .article-section {
-    border-top: 1px solid var(--rule);
-  }
-
-  .section-label {
-    display: inline-flex;
-    align-items: center;
     gap: 0.6rem;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--rust);
-    margin-bottom: 0.75rem;
+    flex-direction: column;
+    align-items: flex-end;
   }
-  .section-label::before {
-    content: '';
-    display: block;
-    width: 24px;
-    height: 2px;
-    background: var(--rust);
+  .company-pill {
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: white;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.4rem 0.9rem;
+    border-radius: 100px;
+    letter-spacing: 0.05em;
   }
 
-  h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.7rem, 3.5vw, 2.4rem);
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
-    color: var(--ink);
-  }
-  h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--ink);
-    margin: 2rem 0 0.6rem;
-  }
-  p { margin-bottom: 1.25rem; color: #3a3530; font-weight: 300; }
-  p:last-child { margin-bottom: 0; }
-
-  /* ── SWOT GRID ── */
-  .swot-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: var(--rule);
-    border: 1px solid var(--rule);
-    margin: 2rem 0;
-    border-radius: 4px;
+  /* ── INTRO STRIP ── */
+  .intro-strip {
+    background: var(--accent1);
+    color: white;
+    padding: 1.2rem 4rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    display: flex;
+    gap: 3rem;
     overflow: hidden;
   }
-  .swot-cell {
-    background: var(--warm-white);
-    padding: 1.4rem 1.5rem;
+  .intro-strip span { white-space: nowrap; opacity: 0.85; }
+  .intro-strip span::before { content: '→  '; }
+
+  /* ── MAIN CONTENT ── */
+  .content-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem;
   }
-  .swot-cell h4 {
+
+  /* ── SECTION HEADINGS ── */
+  .case-header {
+    padding: 4.5rem 0 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+  .case-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 4rem;
+    font-weight: 800;
+    color: var(--rule);
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+  }
+  .case-title-block {}
+  .case-tag {
     font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
+    color: var(--accent1);
+    margin-bottom: 0.4rem;
+  }
+  .case-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 0.8rem;
+  }
+  .case-intro {
+    font-size: 0.95rem;
+    color: var(--mid);
+    font-weight: 300;
+    line-height: 1.75;
+    max-width: 580px;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 3.5rem 0 0;
+  }
+
+  /* ── IMAGE BANNER ── */
+  .img-banner {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 2rem 0;
+    display: block;
+  }
+  .img-caption {
+    font-size: 0.72rem;
+    color: var(--light);
+    text-align: center;
+    margin-top: -1.2rem;
+    margin-bottom: 2rem;
+    font-style: italic;
+  }
+
+  /* ── BODY TEXT ── */
+  .body-text {
+    padding: 1.5rem 0 0;
+  }
+  .body-text h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 2.2rem 0 0.7rem;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .body-text p {
+    color: var(--mid);
+    font-weight: 300;
+    margin-bottom: 1.2rem;
+    font-size: 0.97rem;
+  }
+  .body-text strong { color: var(--ink); font-weight: 600; }
+
+  /* ── SWOT ── */
+  .swot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  .swot-cell {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 1.4rem 1.5rem;
+    border-top: 3px solid var(--rule);
+  }
+  .swot-cell.s { border-top-color: var(--accent3); }
+  .swot-cell.w { border-top-color: var(--accent1); }
+  .swot-cell.o { border-top-color: var(--accent2); }
+  .swot-cell.t { border-top-color: var(--accent4); }
+  .swot-cell h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     margin-bottom: 0.9rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid currentColor;
   }
-  .swot-cell.s h4 { color: var(--forest); }
-  .swot-cell.w h4 { color: var(--rust); }
-  .swot-cell.o h4 { color: var(--steel); }
-  .swot-cell.t h4 { color: #8b5e00; }
-  .swot-cell ul {
-    list-style: none;
-    padding: 0;
-  }
+  .swot-cell.s h4 { color: var(--accent3); }
+  .swot-cell.w h4 { color: var(--accent1); }
+  .swot-cell.o h4 { color: var(--accent2); }
+  .swot-cell.t h4 { color: var(--accent4); }
+  .swot-cell ul { list-style: none; padding: 0; }
   .swot-cell ul li {
-    font-size: 0.88rem;
-    font-weight: 400;
-    color: #3a3530;
-    padding: 0.2rem 0;
-    padding-left: 1rem;
+    font-size: 0.84rem;
+    color: var(--mid);
+    padding: 0.22rem 0 0.22rem 1.1rem;
     position: relative;
-    line-height: 1.4;
-    margin-bottom: 0.3rem;
+    line-height: 1.45;
+    font-weight: 400;
   }
   .swot-cell ul li::before {
-    content: '—';
+    content: '▸';
     position: absolute;
     left: 0;
-    color: #bbb;
+    font-size: 0.6rem;
+    top: 0.4rem;
+  }
+  .swot-cell.s ul li::before { color: var(--accent3); }
+  .swot-cell.w ul li::before { color: var(--accent1); }
+  .swot-cell.o ul li::before { color: var(--accent2); }
+  .swot-cell.t ul li::before { color: var(--accent4); }
+
+  /* ── CHART CONTAINERS ── */
+  .chart-wrap {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 1.8rem;
+    margin: 2rem 0;
+    border: 1px solid var(--rule);
+  }
+  .chart-wrap h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.01em;
+  }
+  .chart-subtitle {
     font-size: 0.75rem;
+    color: var(--light);
+    margin-bottom: 1.4rem;
+    font-weight: 400;
   }
-
-  /* ── PULL QUOTE ── */
-  .pull-quote {
-    margin: 2.5rem 0;
-    padding: 2rem 2rem 2rem 2.5rem;
-    background: var(--ink);
-    color: var(--cream);
-    border-radius: 4px;
-    position: relative;
-  }
-  .pull-quote::before {
-    content: '\201C';
-    font-family: 'Playfair Display', serif;
-    font-size: 5rem;
-    color: var(--gold);
-    position: absolute;
-    top: -0.5rem;
-    left: 1.2rem;
-    line-height: 1;
-    opacity: 0.6;
-  }
-  .pull-quote p {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    font-style: italic;
-    color: var(--cream);
-    line-height: 1.65;
-    margin: 0;
-    padding-top: 1rem;
-  }
-  .pull-quote cite {
-    display: block;
-    margin-top: 1rem;
-    font-size: 0.78rem;
-    font-style: normal;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
-
-  /* ── VRIO TABLE ── */
-  .vrio-grid {
+  .chart-row {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  /* ── VRIO CARDS ── */
+  .vrio-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.8rem;
     margin: 2rem 0;
   }
   .vrio-card {
-    padding: 1.2rem 1.3rem;
-    border-radius: 4px;
+    background: var(--white);
+    border-radius: 8px;
+    padding: 1.2rem 1rem;
     border: 1px solid var(--rule);
+    text-align: center;
   }
-  .vrio-card .letter {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    font-weight: 900;
+  .vrio-letter {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
     line-height: 1;
     margin-bottom: 0.4rem;
   }
-  .vrio-card h5 {
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 0.4rem;
-  }
-  .vrio-card p {
-    font-size: 0.85rem;
-    color: #5a5550;
-    margin: 0;
-    line-height: 1.45;
-  }
-  .vrio-card.v { border-left: 3px solid var(--forest); }
-  .vrio-card.v .letter { color: var(--forest); }
-  .vrio-card.r { border-left: 3px solid var(--steel); }
-  .vrio-card.r .letter { color: var(--steel); }
-  .vrio-card.i { border-left: 3px solid var(--rust); }
-  .vrio-card.i .letter { color: var(--rust); }
-  .vrio-card.o { border-left: 3px solid var(--gold); }
-  .vrio-card.o .letter { color: var(--gold); }
-
-  /* ── CAPABILITIES TABLE ── */
-  .cap-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 2rem 0;
-    font-size: 0.9rem;
-  }
-  .cap-table thead tr {
-    background: var(--ink);
-    color: var(--cream);
-  }
-  .cap-table thead th {
-    padding: 0.9rem 1rem;
-    text-align: left;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-  }
-  .cap-table tbody tr { border-bottom: 1px solid var(--rule); }
-  .cap-table tbody tr:nth-child(even) { background: #f3efe8; }
-  .cap-table td {
-    padding: 0.75rem 1rem;
-    vertical-align: top;
-    color: #3a3530;
-    font-weight: 300;
-  }
-  .cap-table td:first-child { font-weight: 500; color: var(--ink); }
-  .tag {
-    display: inline-block;
-    font-size: 0.65rem;
+  .vrio-title {
+    font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    padding: 0.2rem 0.5rem;
-    border-radius: 2px;
+    margin-bottom: 0.5rem;
   }
-  .tag-d { background: #e8f5ed; color: var(--forest); }
-  .tag-t { background: #eef2f7; color: var(--steel); }
+  .vrio-desc {
+    font-size: 0.78rem;
+    color: var(--mid);
+    line-height: 1.45;
+    font-weight: 300;
+  }
+  .vrio-card.v .vrio-letter { color: var(--accent3); }
+  .vrio-card.r .vrio-letter { color: var(--accent2); }
+  .vrio-card.i .vrio-letter { color: var(--accent1); }
+  .vrio-card.o .vrio-letter { color: var(--accent4); }
 
-  /* ── IKEA STRATEGY CARDS ── */
-  .strategy-cards {
+  /* ── COMPARISON CARDS ── */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  .compare-card {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 1px solid var(--rule);
+  }
+  .compare-card .brand {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.02em;
+  }
+  .compare-card.amazon .brand { color: #ff9900; }
+  .compare-card.walmart .brand { color: #0071CE; }
+  .compare-card .brand-sub {
+    font-size: 0.72rem;
+    color: var(--light);
+    font-weight: 500;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .compare-card ul { list-style: none; padding: 0; }
+  .compare-card ul li {
+    font-size: 0.85rem;
+    color: var(--mid);
+    padding: 0.3rem 0 0.3rem 1.1rem;
+    position: relative;
+    border-bottom: 1px solid var(--rule);
+    font-weight: 400;
+    line-height: 1.4;
+  }
+  .compare-card ul li:last-child { border-bottom: none; }
+  .compare-card ul li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    font-size: 0.5rem;
+    top: 0.55rem;
+  }
+  .compare-card.amazon ul li::before { color: #ff9900; }
+  .compare-card.walmart ul li::before { color: #0071CE; }
+
+  /* ── IKEA PILLARS ── */
+  .pillar-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     margin: 2rem 0;
   }
-  .s-card {
-    padding: 1.5rem;
-    border-radius: 4px;
-    background: var(--cream);
+  .pillar {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 1.4rem 1.5rem;
     border: 1px solid var(--rule);
+    position: relative;
+    overflow: hidden;
   }
-  .s-card .s-num {
+  .pillar::before {
+    content: attr(data-num);
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--rule);
+    line-height: 1;
+  }
+  .pillar-tag {
     font-size: 0.65rem;
     font-weight: 700;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--light);
     margin-bottom: 0.3rem;
   }
-  .s-card h4 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.05rem;
+  .pillar h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
     font-weight: 700;
-    margin-bottom: 0.7rem;
+    margin-bottom: 0.8rem;
     color: var(--ink);
   }
-  .s-card ul {
-    list-style: none;
-    padding: 0;
-  }
-  .s-card ul li {
-    font-size: 0.85rem;
-    color: #4a4540;
+  .pillar ul { list-style: none; padding: 0; }
+  .pillar ul li {
+    font-size: 0.82rem;
+    color: var(--mid);
     padding: 0.2rem 0 0.2rem 1rem;
     position: relative;
     line-height: 1.4;
   }
-  .s-card ul li::before {
-    content: '↗';
+  .pillar ul li::before {
+    content: '→';
     position: absolute;
     left: 0;
+    color: var(--accent1);
     font-size: 0.7rem;
-    color: var(--rust);
   }
 
   /* ── VALUE CHAIN ── */
   .value-chain {
     display: flex;
-    align-items: stretch;
-    gap: 0;
     margin: 2rem 0;
     overflow-x: auto;
+    gap: 0;
+    background: var(--ink);
+    border-radius: 8px;
+    overflow: hidden;
   }
   .vc-step {
     flex: 1;
-    min-width: 90px;
-    background: var(--ink);
-    color: var(--cream);
-    padding: 1rem 0.75rem;
+    min-width: 100px;
+    padding: 1.2rem 0.8rem;
     text-align: center;
+    color: white;
+    border-right: 1px solid rgba(255,255,255,0.08);
     position: relative;
-    font-size: 0.72rem;
-    font-weight: 500;
-    line-height: 1.3;
   }
-  .vc-step:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    right: -10px;
-    top: 50%;
-    transform: translateY(-50%);
-    border-left: 10px solid var(--ink);
-    border-top: 22px solid transparent;
-    border-bottom: 22px solid transparent;
-    z-index: 2;
+  .vc-step:last-child {
+    background: var(--accent3);
+    border-right: none;
   }
-  .vc-step:not(:first-child) { margin-left: 1px; }
-  .vc-step:last-child { background: var(--forest); }
-  .vc-step:last-child::after { display: none; }
-  .vc-icon { font-size: 1.2rem; margin-bottom: 0.3rem; display: block; }
+  .vc-step .vc-icon { font-size: 1.4rem; margin-bottom: 0.4rem; display: block; }
+  .vc-step .vc-label { font-size: 0.7rem; font-weight: 600; line-height: 1.3; color: #c8c5c0; }
+  .vc-step:last-child .vc-label { color: white; }
 
-  /* ── REFLECTION BOX ── */
-  .reflection {
-    background: linear-gradient(135deg, var(--forest) 0%, #2d6b48 100%);
-    color: var(--cream);
+  /* ── PULL QUOTE ── */
+  .pull-quote {
+    border-left: 4px solid var(--accent1);
+    background: var(--white);
+    padding: 1.8rem 2rem;
+    margin: 2.5rem 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .pull-quote blockquote {
+    font-family: 'Lora', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.7;
+    margin-bottom: 0.8rem;
+  }
+  .pull-quote cite {
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 600;
+    color: var(--light);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ── TAKEAWAY BOX ── */
+  .takeaway {
+    background: var(--ink);
+    color: white;
+    border-radius: 10px;
     padding: 2.5rem;
-    border-radius: 4px;
     margin: 2.5rem 0;
   }
-  .reflection h4 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
+  .takeaway h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent1);
+    margin-bottom: 0.8rem;
+  }
+  .takeaway p {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
     font-style: italic;
-    margin-bottom: 1.2rem;
-    color: #a8d4b8;
-  }
-  .reflection ol {
-    padding-left: 1.3rem;
-  }
-  .reflection ol li {
-    font-size: 0.92rem;
-    margin-bottom: 0.6rem;
-    color: #cce8d8;
-    font-weight: 300;
-    line-height: 1.5;
+    line-height: 1.7;
+    color: #d0cdc8;
+    margin-bottom: 0;
   }
 
-  /* ── DIVIDER ── */
-  .ornament {
-    text-align: center;
-    color: var(--rule);
-    font-size: 1.2rem;
-    letter-spacing: 0.5rem;
-    margin: 1rem 0;
+  /* ── REFLECTION ── */
+  .reflection {
+    background: #e8f5ee;
+    border-radius: 10px;
+    padding: 2rem 2.2rem;
+    margin: 2rem 0;
+    border: 1px solid #b8dfc8;
+  }
+  .reflection h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent3);
+    margin-bottom: 1rem;
+  }
+  .reflection ol {
+    padding-left: 1.2rem;
+  }
+  .reflection ol li {
+    font-size: 0.88rem;
+    color: #2a5c3e;
+    margin-bottom: 0.5rem;
+    line-height: 1.55;
+    font-weight: 400;
+  }
+
+  /* ── CONCLUSION ── */
+  .conclusion {
+    padding: 4rem 0 5rem;
+    border-top: 1px solid var(--rule);
+    margin-top: 2rem;
   }
 
   /* ── FOOTER ── */
   footer {
     background: var(--ink);
-    color: #6b665e;
+    color: #5a5750;
+    padding: 3rem 2rem;
     text-align: center;
-    padding: 2.5rem 1.5rem;
     font-size: 0.78rem;
-    letter-spacing: 0.05em;
-    margin-top: 3rem;
   }
-  footer span { color: var(--gold); }
+  footer .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  footer .footer-logo span { color: var(--accent1); }
+  footer p { margin-top: 0.3rem; }
 
   /* ── ANIMATIONS ── */
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
+    from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-  .masthead h1, .masthead-sub, .intro-lede {
-    animation: fadeUp 0.7s ease both;
+  .hero-left > * {
+    animation: fadeUp 0.6s ease both;
   }
-  .masthead-sub { animation-delay: 0.15s; }
-  .intro-lede   { animation-delay: 0.25s; }
+  .hero-tag { animation-delay: 0s; }
+  .hero h1  { animation-delay: 0.1s; }
+  .hero-desc { animation-delay: 0.2s; }
+  .hero-meta { animation-delay: 0.3s; }
 
-  @media (max-width: 600px) {
-    .swot-grid { grid-template-columns: 1fr; }
-    .strategy-cards { grid-template-columns: 1fr; }
-    .vrio-grid { grid-template-columns: 1fr; }
-    .value-chain { flex-direction: column; }
-    .vc-step::after { display: none; }
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 3rem 1.5rem; }
+    .swot-grid, .compare-grid, .pillar-grid, .chart-row, .vrio-row { grid-template-columns: 1fr; }
+    .vrio-row { grid-template-columns: 1fr 1fr; }
+    .content-wrap { padding: 0 1.2rem; }
+    .case-header { flex-direction: column; gap: 0.5rem; }
+    .case-num { font-size: 2.5rem; }
+    nav .nav-links { display: none; }
   }
 </style>
 </head>
 <body>
 
-<!-- MASTHEAD -->
-<header class="masthead">
-  <div class="masthead-kicker">Week 2 Seminar · Strategy & Business</div>
-  <h1>Strategic Analysis <em>in Action</em></h1>
-  <p class="masthead-sub">From internal strengths to competitive advantage — lessons from Canal+, Amazon, Walmart & IKEA</p>
-  <div class="byline">
-    <span>Strategic Frameworks</span> &nbsp;·&nbsp; Tools &amp; Analysis &nbsp;·&nbsp; Real-World Strategy
-  </div>
-</header>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">strat<span>.</span>notes</div>
+  <ul class="nav-links">
+    <li><a href="#canal">Canal+</a></li>
+    <li><a href="#amazon">Amazon vs Walmart</a></li>
+    <li><a href="#ikea">IKEA</a></li>
+    <li><a href="#conclusion">Takeaways</a></li>
+  </ul>
+</nav>
 
-<!-- INTRO -->
-<section class="intro">
-  <p class="intro-lede">Understanding how companies win is not about luck — it's about identifying the right resources, leveraging genuine strengths, and building strategies that competitors simply cannot copy.</p>
-  <p>This week's seminar walked through three powerful frameworks — SWOT, VRIO, and Business-Level Strategy — applied to real companies: Canal+, Amazon vs Walmart, and IKEA. Here's a breakdown of the key insights.</p>
-</section>
-
-<!-- SEMINAR TASK 1: CANAL+ -->
-<section class="article-section">
-  <div class="container">
-    <div class="section-label">Seminar Task 1</div>
-    <h2>Canal+: Reading the Strategic Chessboard</h2>
-    <p>Canal+ is one of Europe's most recognisable pay-TV and streaming groups, with deep roots in France and a growing presence across Africa. But in an era defined by Netflix and Disney+, how strong is its strategic position really? A SWOT analysis reveals a nuanced picture.</p>
-
-    <h3>The Full SWOT Breakdown</h3>
-    <div class="swot-grid">
-      <div class="swot-cell s">
-        <h4>Strengths</h4>
-        <ul>
-          <li>Strong brand and market reputation</li>
-          <li>Premium content &amp; exclusive rights</li>
-          <li>Diverse portfolio — TV, streaming, cinema, production</li>
-          <li>Strong presence in France &amp; Africa</li>
-          <li>Integrated operations</li>
-        </ul>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">📚 Week 2 Seminar Notes</div>
+    <h1>Strategic Analysis<br><span class="line2">in Action</span></h1>
+    <p class="hero-desc">Three frameworks. Three companies. One big idea: competitive advantage isn't a moment — it's a system you build over decades that rivals can't easily copy.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Frameworks</span>
+        <span class="hero-meta-val">SWOT · VRIO · BLS</span>
       </div>
-      <div class="swot-cell w">
-        <h4>Weaknesses</h4>
-        <ul>
-          <li>High content acquisition costs</li>
-          <li>Dependence on traditional markets</li>
-          <li>Complex cost structure</li>
-          <li>Competition from global streamers</li>
-        </ul>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Case Studies</span>
+        <span class="hero-meta-val">3 companies</span>
       </div>
-      <div class="swot-cell o">
-        <h4>Opportunities</h4>
-        <ul>
-          <li>Growth in streaming &amp; digital services</li>
-          <li>Expansion in emerging markets</li>
-          <li>Partnerships &amp; co-productions</li>
-          <li>Personalisation &amp; data analytics</li>
-          <li>Growth in sports broadcasting</li>
-        </ul>
-      </div>
-      <div class="swot-cell t">
-        <h4>Threats</h4>
-        <ul>
-          <li>Intense competition (Netflix, Disney+, Amazon Prime)</li>
-          <li>Piracy and shifting consumer behaviour</li>
-          <li>Economic downturns</li>
-          <li>Regulatory &amp; content licensing risks</li>
-        </ul>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Module</span>
+        <span class="hero-meta-val">Business Strategy</span>
       </div>
     </div>
-
-    <h3>What the SWOT Actually Tells Us</h3>
-    <p>Canal+'s genuine competitive moat lies in its <strong>content rights and African market position</strong> — two areas where global streamers are still catching up. Its diversified production arm (including StudioCanal) means it can create, not just distribute, premium content.</p>
-    <p>However, the business sits uncomfortably between two worlds. It's too traditional to compete purely on streaming economics, but too expensive to be a regional niche player. The strategic imperative is clear: accelerate digital transformation while doubling down on its irreplaceable local identity and content advantage.</p>
-
-    <div class="reflection">
-      <h4>Reflection Questions to Consider</h4>
-      <ol>
-        <li>How well is Canal+ actually leveraging its brand strength in digital channels?</li>
-        <li>Is its Africa expansion a genuine strategic pillar, or still an afterthought?</li>
-        <li>Can personalisation and data analytics become a true differentiator, or is it table stakes?</li>
-        <li>How should it respond to the bundling strategies of tech giants?</li>
-      </ol>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=900&auto=format&fit=crop" alt="Strategy session">
+    <div class="hero-companies">
+      <span class="company-pill">Canal+</span>
+      <span class="company-pill">Amazon vs Walmart</span>
+      <span class="company-pill">IKEA</span>
     </div>
   </div>
 </section>
 
-<!-- SEMINAR TASK 2: AMAZON VS WALMART -->
-<section class="article-section">
-  <div class="container">
-    <div class="section-label">Seminar Task 2</div>
-    <h2>Amazon vs. Walmart: The VRIO Battle</h2>
-    <p>Two of the world's largest retailers. One born from a bookshop in a garage. The other from a discount store in Arkansas. Decades on, they're locked in the most consequential retail rivalry in history. The VRIO framework helps us understand why neither has simply crushed the other — and why both still have legitimate claims to competitive advantage.</p>
+<!-- INTRO STRIP -->
+<div class="intro-strip">
+  <span>SWOT Analysis</span>
+  <span>VRIO Framework</span>
+  <span>Cost Leadership</span>
+  <span>Differentiation Strategy</span>
+  <span>Competitive Advantage</span>
+  <span>Business Model Evolution</span>
+  <span>Resource-Based View</span>
+</div>
 
-    <h3>Resources &amp; Capabilities on the Table</h3>
-    <p>Before applying VRIO, it's worth mapping the key resources both companies bring to the fight:</p>
-    <table class="cap-table">
-      <thead>
-        <tr>
-          <th>Resource / Capability</th>
-          <th>Threshold or Distinctive?</th>
-          <th>Who leads?</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Technology &amp; Innovation</td>
-          <td><span class="tag tag-d">Distinctive</span></td>
-          <td>Amazon (AWS, AI, automation)</td>
-        </tr>
-        <tr>
-          <td>Logistics &amp; Supply Chain</td>
-          <td><span class="tag tag-d">Distinctive</span></td>
-          <td>Both — different models</td>
-        </tr>
-        <tr>
-          <td>Brand &amp; Customer Loyalty</td>
-          <td><span class="tag tag-d">Distinctive</span></td>
-          <td>Amazon Prime vs. Walmart+</td>
-        </tr>
-        <tr>
-          <td>Data &amp; Analytics</td>
-          <td><span class="tag tag-d">Distinctive</span></td>
-          <td>Amazon (data-driven personalisation)</td>
-        </tr>
-        <tr>
-          <td>Retail Operations</td>
-          <td><span class="tag tag-t">Threshold</span></td>
-          <td>Table stakes for both</td>
-        </tr>
-        <tr>
-          <td>Scale &amp; Financial Resources</td>
-          <td><span class="tag tag-d">Distinctive</span></td>
-          <td>Both — different leverage</td>
-        </tr>
-        <tr>
-          <td>Human Capital</td>
-          <td><span class="tag tag-t">Threshold</span></td>
-          <td>Contested</td>
-        </tr>
-      </tbody>
-    </table>
+<!-- MAIN CONTENT -->
+<main class="content-wrap">
 
-    <h3>Applying the VRIO Framework</h3>
-    <div class="vrio-grid">
-      <div class="vrio-card v">
-        <div class="letter">V</div>
-        <h5>Value</h5>
-        <p>Does the resource create real customer value? Amazon's advanced tech and Walmart's everyday low prices both clearly do — but through opposite mechanisms.</p>
-      </div>
-      <div class="vrio-card r">
-        <div class="letter">R</div>
-        <h5>Rarity</h5>
-        <p>Is it rare among competitors? Amazon's AWS infrastructure and Walmart's physical store network at scale are genuinely rare assets — neither can be quickly replicated.</p>
-      </div>
-      <div class="vrio-card i">
-        <div class="letter">I</div>
-        <h5>Imitability</h5>
-        <p>Can rivals copy it cheaply? Amazon's algorithmic personalisation and Walmart's omnichannel integration took decades and billions to build. The barriers are enormous.</p>
-      </div>
-      <div class="vrio-card o">
-        <div class="letter">O</div>
-        <h5>Organisation</h5>
-        <p>Is the firm structured to exploit it? Both are — but Amazon's flat structure and two-pizza team model gives it an edge in speed of innovation.</p>
+  <!-- ═══ CANAL+ ═══ -->
+  <div id="canal">
+    <div class="case-header">
+      <div class="case-num">01</div>
+      <div class="case-title-block">
+        <div class="case-tag">Seminar Task 1 · SWOT Analysis</div>
+        <h2 class="case-title">Canal+: Navigating the Streaming Wars</h2>
+        <p class="case-intro">Canal+ is a French pay-TV giant facing an existential question: how do you compete when Netflix, Disney+ and Amazon Prime are all gunning for the same living room?</p>
       </div>
     </div>
-
-    <h3>The Strategic Takeaway</h3>
-    <p>Amazon wins on technology, personalisation, and third-party ecosystem. Walmart wins on physical reach, supply chain muscle, and price competitiveness at massive scale. Crucially, their <em>distinctive</em> capabilities are hard to swap — Amazon can't easily build 4,700 physical stores; Walmart can't easily become a cloud computing powerhouse.</p>
-    <p>The real competitive battleground is <strong>omnichannel integration</strong>: whoever closes the gap between digital and physical first gains a near-permanent advantage. The race is still live.</p>
   </div>
-</section>
 
-<!-- IKEA -->
-<section class="article-section">
-  <div class="container">
-    <div class="section-label">Business-Level Strategy</div>
-    <h2>IKEA: Refusing to Choose Between Cheap and Good</h2>
-    <p>Most strategy textbooks will tell you to pick a lane: either compete on cost, or compete on differentiation. IKEA's genius — and the reason it has survived and grown for over 80 years — is its disciplined refusal to do either in isolation.</p>
+  <img src="https://images.unsplash.com/photo-1593784991095-a205069470b6?w=900&auto=format&fit=crop" alt="Streaming and media" class="img-banner" style="margin-top:2rem;">
+  <p class="img-caption">The streaming landscape — increasingly crowded, increasingly global.</p>
 
+  <div class="body-text">
+    <p>Canal+ has been a dominant force in European pay-TV since the 1980s, but the rise of global streaming giants has fundamentally altered the competitive landscape. Using SWOT analysis, we can map out where Canal+ genuinely leads — and where it's exposed.</p>
+
+    <h3>The SWOT Breakdown</h3>
+  </div>
+
+  <div class="swot-grid">
+    <div class="swot-cell s">
+      <h4>💪 Strengths</h4>
+      <ul>
+        <li>Strong brand & market reputation</li>
+        <li>Premium content & exclusive rights</li>
+        <li>Diverse portfolio — TV, streaming, cinema</li>
+        <li>Strong presence in France & Africa</li>
+        <li>Integrated production operations</li>
+      </ul>
+    </div>
+    <div class="swot-cell w">
+      <h4>⚠️ Weaknesses</h4>
+      <ul>
+        <li>High content acquisition costs</li>
+        <li>Dependence on traditional markets</li>
+        <li>Complex, expensive cost structure</li>
+        <li>Vulnerable to global streamer pressure</li>
+      </ul>
+    </div>
+    <div class="swot-cell o">
+      <h4>🚀 Opportunities</h4>
+      <ul>
+        <li>Growth in streaming & digital services</li>
+        <li>Expansion in emerging markets</li>
+        <li>Partnerships & co-productions</li>
+        <li>Personalisation & data analytics</li>
+        <li>Sports broadcasting rights</li>
+      </ul>
+    </div>
+    <div class="swot-cell t">
+      <h4>🔥 Threats</h4>
+      <ul>
+        <li>Netflix, Disney+, Amazon Prime pressure</li>
+        <li>Piracy & shifting consumer habits</li>
+        <li>Economic downturns affecting spend</li>
+        <li>Regulatory & licensing risks</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Canal+ Chart: Competitive Threat Radar -->
+  <div class="chart-row">
+    <div class="chart-wrap">
+      <h4>Canal+ Strategic Score vs Rivals</h4>
+      <p class="chart-subtitle">Estimated relative strength (0–10) across key dimensions</p>
+      <canvas id="radarChart" height="240"></canvas>
+    </div>
+    <div class="chart-wrap">
+      <h4>Canal+ Revenue Mix (Estimated)</h4>
+      <p class="chart-subtitle">Breakdown by segment — traditional vs. growth areas</p>
+      <canvas id="canalPie" height="240"></canvas>
+    </div>
+  </div>
+
+  <div class="body-text">
+    <h3>My Take</h3>
+    <p>What struck me most in the seminar is that Canal+'s <strong>Africa presence is massively underrated</strong>. While Netflix pours money into local content in the US and UK, Canal+ has had boots on the ground in Francophone Africa for years. That's a moat Netflix would take a decade to replicate.</p>
+    <p>The weakness, though, is real: Canal+ is stuck between two identities. It's too premium to win on pure price, but not big enough to outspend Netflix on content. The strategic answer has to be co-production and niche ownership — go deep in sports and local drama, not broad.</p>
+  </div>
+
+  <div class="reflection">
+    <h4>🤔 Seminar Reflection Questions</h4>
+    <ol>
+      <li>How well is Canal+ leveraging its brand strength in digital channels — or is it still thinking like a broadcaster?</li>
+      <li>Is the Africa expansion a genuine strategic pillar, or an afterthought that needs more investment?</li>
+      <li>Can personalisation and data analytics become a real differentiator, or is this just table stakes now?</li>
+      <li>How should Canal+ respond to the bundle strategies of Apple TV+, Disney+ and Amazon?</li>
+    </ol>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══ AMAZON VS WALMART ═══ -->
+  <div id="amazon">
+    <div class="case-header">
+      <div class="case-num">02</div>
+      <div class="case-title-block">
+        <div class="case-tag">Seminar Task 2 · VRIO Framework</div>
+        <h2 class="case-title">Amazon vs. Walmart: The VRIO Battle</h2>
+        <p class="case-intro">Two giants. One from a garage in Seattle, one from a small town in Arkansas. Here's why neither has killed the other — and why the race is still on.</p>
+      </div>
+    </div>
+  </div>
+
+  <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=900&auto=format&fit=crop" alt="Warehouse logistics" class="img-banner" style="margin-top:2rem;">
+  <p class="img-caption">The battlefield: logistics, data, scale — and whoever cracks omnichannel first.</p>
+
+  <div class="body-text">
+    <p>The VRIO framework asks four questions about every resource: does it create <strong>Value</strong>? Is it <strong>Rare</strong>? Is it hard to <strong>Imitate</strong>? Is the organisation set up to <strong>exploit</strong> it? Only resources that pass all four tests deliver sustained competitive advantage.</p>
+
+    <h3>Their Distinctive Strengths Side-by-Side</h3>
+  </div>
+
+  <div class="compare-grid">
+    <div class="compare-card amazon">
+      <div class="brand">amazon</div>
+      <div class="brand-sub">Distinctive Advantages</div>
+      <ul>
+        <li>Advanced technology & automation</li>
+        <li>Data-driven personalisation (AI/ML)</li>
+        <li>AWS cloud ecosystem & revenue</li>
+        <li>Fulfilled by Amazon logistics network</li>
+        <li>Prime membership loyalty flywheel</li>
+      </ul>
+    </div>
+    <div class="compare-card walmart">
+      <div class="brand">Walmart ★</div>
+      <div class="brand-sub">Distinctive Advantages</div>
+      <ul>
+        <li>4,700+ physical stores as fulfilment hubs</li>
+        <li>Everyday low prices at massive scale</li>
+        <li>Omnichannel grocery dominance (US)</li>
+        <li>Supply chain efficiency & supplier power</li>
+        <li>Walmart+ membership growing fast</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- VRIO Cards -->
+  <h3 style="font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;margin:2rem 0 0.8rem;letter-spacing:-0.01em;">Applying VRIO</h3>
+  <div class="vrio-row">
+    <div class="vrio-card v">
+      <div class="vrio-letter">V</div>
+      <div class="vrio-title">Value</div>
+      <p class="vrio-desc">Both create undeniable customer value — Amazon through convenience & choice, Walmart through price.</p>
+    </div>
+    <div class="vrio-card r">
+      <div class="vrio-letter">R</div>
+      <div class="vrio-title">Rarity</div>
+      <p class="vrio-desc">AWS infrastructure and Walmart's store network at scale are genuinely rare — no one else has either.</p>
+    </div>
+    <div class="vrio-card i">
+      <div class="vrio-letter">I</div>
+      <div class="vrio-title">Imitability</div>
+      <p class="vrio-desc">Both took decades and hundreds of billions to build. The barrier to imitation is enormous.</p>
+    </div>
+    <div class="vrio-card o">
+      <div class="vrio-letter">O</div>
+      <div class="vrio-title">Organisation</div>
+      <p class="vrio-desc">Both are structured to exploit their assets — Amazon through speed, Walmart through operational discipline.</p>
+    </div>
+  </div>
+
+  <!-- Charts: Amazon vs Walmart -->
+  <div class="chart-row">
+    <div class="chart-wrap">
+      <h4>Revenue Comparison (2023, USD bn)</h4>
+      <p class="chart-subtitle">Amazon vs Walmart across key segments</p>
+      <canvas id="revenueBar" height="230"></canvas>
+    </div>
+    <div class="chart-wrap">
+      <h4>VRIO Score: Amazon vs Walmart</h4>
+      <p class="chart-subtitle">Estimated relative strength on each VRIO dimension (0–10)</p>
+      <canvas id="vrioBar" height="230"></canvas>
+    </div>
+  </div>
+
+  <div class="body-text">
+    <h3>The Real Battleground</h3>
+    <p>What the seminar made clear is that Amazon and Walmart are <strong>asymmetric competitors</strong>. Amazon's strength is digital-first and data-led; Walmart's is physical scale and price. Copying each other's core advantage would take years and cost billions.</p>
+    <p>The live race is <strong>omnichannel</strong>. Amazon is pushing hard into physical retail (Amazon Fresh, Whole Foods). Walmart is doubling down on e-commerce and same-day delivery using its store network as mini-fulfilment centres. Whoever cracks the seamless digital-physical experience first wins a structural advantage that's almost impossible to dislodge.</p>
+  </div>
+
+  <div class="takeaway">
+    <h4>Key Insight</h4>
+    <p>"Amazon can't easily build 4,700 physical stores. Walmart can't easily become a cloud computing powerhouse. Their advantages are structurally asymmetric — which is exactly why the rivalry is still live."</p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══ IKEA ═══ -->
+  <div id="ikea">
+    <div class="case-header">
+      <div class="case-num">03</div>
+      <div class="case-title-block">
+        <div class="case-tag">Business-Level Strategy · Cost + Differentiation</div>
+        <h2 class="case-title">IKEA: The Art of the Hybrid Strategy</h2>
+        <p class="case-intro">Most companies are told to pick one lane. IKEA built a business model where cheap and good reinforce each other — and then evolved it into a circular economy pioneer.</p>
+      </div>
+    </div>
+  </div>
+
+  <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=900&auto=format&fit=crop" alt="IKEA-style living room" class="img-banner" style="margin-top:2rem;">
+  <p class="img-caption">Functional, affordable, designed for life — IKEA's value proposition in one room.</p>
+
+  <div class="body-text">
+    <p>Porter's generic strategies framework says: compete on cost, or compete on differentiation. Pick one, or you'll get stuck in the "middle" — mediocre at both. IKEA's 80-year history is a masterclass in why that rule has exceptions.</p>
     <h3>Four Strategic Pillars</h3>
-    <div class="strategy-cards">
-      <div class="s-card">
-        <div class="s-num">01 · Cost Leadership</div>
-        <h4>How IKEA Achieves Low Cost</h4>
-        <ul>
-          <li>Global sourcing &amp; scale</li>
-          <li>Flat-pack design cuts transport costs</li>
-          <li>Efficient, automated production</li>
-          <li>Optimised logistics &amp; distribution</li>
-          <li>In-store experience reduces labour</li>
-        </ul>
-      </div>
-      <div class="s-card">
-        <div class="s-num">02 · Differentiation</div>
-        <h4>What Makes IKEA Unique</h4>
-        <ul>
-          <li>Functional, stylish &amp; affordable design</li>
-          <li>Unique in-store experience</li>
-          <li>Sustainability &amp; responsible sourcing</li>
-          <li>Strong brand identity &amp; trust</li>
-          <li>Solutions for better everyday life</li>
-        </ul>
-      </div>
-      <div class="s-card">
-        <div class="s-num">03 · Hybrid Strategy</div>
-        <h4>Avoiding the "Middle Trap"</h4>
-        <ul>
-          <li>Clear value prop: good design, low price</li>
-          <li>Operational excellence supports both goals</li>
-          <li>Continuous innovation in design &amp; materials</li>
-          <li>Strong customer focus throughout</li>
-        </ul>
-      </div>
-      <div class="s-card">
-        <div class="s-num">04 · Business Model Evolution</div>
-        <h4>Towards a Circular Value Chain</h4>
-        <ul>
-          <li>IKEA Preowned — product resale</li>
-          <li>Take-back &amp; recycling programmes</li>
-          <li>Sustainable materials &amp; packaging</li>
-          <li>Repair, refurbish &amp; remanufacture</li>
-        </ul>
-      </div>
-    </div>
-
-    <h3>The IKEA Value Chain</h3>
-    <div class="value-chain">
-      <div class="vc-step"><span class="vc-icon">✏️</span>Design &amp; Development</div>
-      <div class="vc-step"><span class="vc-icon">🌿</span>Sustainable Sourcing</div>
-      <div class="vc-step"><span class="vc-icon">🏭</span>Efficient Production</div>
-      <div class="vc-step"><span class="vc-icon">🚚</span>Smart Logistics</div>
-      <div class="vc-step"><span class="vc-icon">🛒</span>Store &amp; Omnichannel</div>
-      <div class="vc-step"><span class="vc-icon">🔄</span>Reuse, Repair &amp; Recycle</div>
-    </div>
-
-    <div class="pull-quote">
-      <p>The most important thing for me is for furniture as a service to make it profitable. We need to scale it up at a higher speed — we need to make it part of the business model.</p>
-      <cite>— CEO Jesper Brodin (Whittington et al., 2023, p. 415)</cite>
-    </div>
-
-    <h3>Why IKEA Is a Strategy Case Study Worth Studying</h3>
-    <p>The reason IKEA keeps appearing in strategy courses is that it genuinely does something most companies fail at: it integrates cost leadership and differentiation in a way that <em>reinforces</em> rather than undermines each. The flat-pack isn't just cost-saving — it's part of the brand's democratic design philosophy. The stores aren't just showrooms — they're entertainment and inspiration that reduces the need for expensive sales staff.</p>
-    <p>Now, the company is extending this logic to circularity. Furniture-as-a-service, take-back schemes, and repair programmes aren't just good PR — they're a strategic move to extend customer lifetime value and reduce material input costs simultaneously. IKEA is once again refusing to choose between doing good and doing well.</p>
   </div>
-</section>
 
-<!-- CONCLUSION -->
-<section class="article-section">
-  <div class="container">
-    <div class="ornament">— · · —</div>
-    <div class="section-label">Key Takeaways</div>
-    <h2>What These Three Cases Have in Common</h2>
-    <p>Across Canal+, Amazon vs Walmart, and IKEA, one thread runs consistently: <strong>sustained competitive advantage comes from resources and capabilities that are difficult to replicate</strong>, not from any single clever move.</p>
-    <p>Canal+ has geography and content depth. Amazon has its tech ecosystem and data flywheel. Walmart has physical scale and supply chain efficiency. IKEA has an integrated cost-plus-design model built over decades. In each case, the advantage isn't a secret — competitors can see it clearly. The barrier is that copying it would take years, billions, and a complete cultural rewiring.</p>
-    <p>That's the real lesson of strategic analysis: it's not about finding a clever trick. It's about building something that takes so long to replicate, competitors give up trying.</p>
+  <div class="pillar-grid">
+    <div class="pillar" data-num="1">
+      <div class="pillar-tag">01 · Cost Leadership</div>
+      <h4>How IKEA Keeps Prices Low</h4>
+      <ul>
+        <li>Global sourcing & manufacturing scale</li>
+        <li>Flat-pack design slashes transport costs</li>
+        <li>Efficient, automated production lines</li>
+        <li>In-store layout reduces sales staff needed</li>
+        <li>Customer self-assembly as cost lever</li>
+      </ul>
+    </div>
+    <div class="pillar" data-num="2">
+      <div class="pillar-tag">02 · Differentiation</div>
+      <h4>What Makes IKEA Stand Out</h4>
+      <ul>
+        <li>Functional, stylish Scandinavian design</li>
+        <li>Unique, destination in-store experience</li>
+        <li>Sustainability & responsible sourcing</li>
+        <li>Strong emotional brand identity & trust</li>
+        <li>Solutions for everyday life, not just objects</li>
+      </ul>
+    </div>
+    <div class="pillar" data-num="3">
+      <div class="pillar-tag">03 · Hybrid Strategy</div>
+      <h4>Avoiding the "Middle Trap"</h4>
+      <ul>
+        <li>Clear value prop: good design, low price</li>
+        <li>Operational excellence enables both goals</li>
+        <li>Continuous material & design innovation</li>
+        <li>Customer involvement reinforces identity</li>
+      </ul>
+    </div>
+    <div class="pillar" data-num="4">
+      <div class="pillar-tag">04 · Business Model Evolution</div>
+      <h4>Towards a Circular Value Chain</h4>
+      <ul>
+        <li>IKEA Preowned — buy-back & resale</li>
+        <li>Take-back & recycling programmes</li>
+        <li>Sustainable materials & packaging</li>
+        <li>Repair, refurbish & remanufacture</li>
+      </ul>
+    </div>
   </div>
-</section>
+
+  <!-- IKEA charts -->
+  <div class="chart-row">
+    <div class="chart-wrap">
+      <h4>IKEA Cost vs Differentiation Balance</h4>
+      <p class="chart-subtitle">How IKEA allocates strategic emphasis vs. typical retailers</p>
+      <canvas id="ikeaRadar" height="240"></canvas>
+    </div>
+    <div class="chart-wrap">
+      <h4>IKEA Value Chain: Cost Impact</h4>
+      <p class="chart-subtitle">Estimated % cost saving from each value chain stage</p>
+      <canvas id="ikeaCost" height="240"></canvas>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;margin:2rem 0 0.8rem;letter-spacing:-0.01em;">The IKEA Value Chain</h3>
+  <div class="value-chain">
+    <div class="vc-step"><span class="vc-icon">✏️</span><span class="vc-label">Design &amp; Development</span></div>
+    <div class="vc-step"><span class="vc-icon">🌿</span><span class="vc-label">Sustainable Sourcing</span></div>
+    <div class="vc-step"><span class="vc-icon">🏭</span><span class="vc-label">Efficient Production</span></div>
+    <div class="vc-step"><span class="vc-icon">🚚</span><span class="vc-label">Smart Logistics</span></div>
+    <div class="vc-step"><span class="vc-icon">🛒</span><span class="vc-label">Store &amp; Omnichannel</span></div>
+    <div class="vc-step"><span class="vc-icon">🔄</span><span class="vc-label">Reuse, Repair &amp; Recycle</span></div>
+  </div>
+
+  <div class="pull-quote">
+    <blockquote>"The most important thing for me is for furniture as a service to make it profitable. We need to scale it up at a higher speed — we need to make it part of the business model."</blockquote>
+    <cite>— CEO Jesper Brodin (Whittington et al., 2023, p. 415)</cite>
+  </div>
+
+  <div class="body-text">
+    <h3>Why This Case Study Matters</h3>
+    <p>The flat-pack isn't just cost-cutting — it <em>is</em> the brand. Carrying your BILLY bookcase to the car is part of the IKEA story. The cost savings and the customer experience are the same decision. That's genius hybrid strategy: your cost lever doubles as your differentiator.</p>
+    <p>Now IKEA is extending this logic further. Circularity isn't greenwashing — it's a strategic move. Furniture-as-a-service extends customer lifetime value, reduces material input costs, and creates a new revenue stream. <strong>IKEA is once again refusing to choose between doing good and doing well.</strong></p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- CONCLUSION -->
+  <div id="conclusion" class="conclusion">
+    <div class="case-tag" style="font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent1);margin-bottom:0.5rem;">Final Thoughts</div>
+    <h2 class="case-title">What All Three Cases Have in Common</h2>
+    <div class="body-text">
+      <p>After working through these three cases, the common thread is clear: <strong>sustained competitive advantage isn't a clever trick — it's a system that takes years to build and rivals can't easily copy.</strong></p>
+      <p>Canal+ has geography and content depth. Amazon has its tech ecosystem and data flywheel. Walmart has physical scale. IKEA has an integrated cost-plus-design model baked into every part of the business. In every case, competitors can <em>see</em> the advantage — the barrier is that copying it would take a decade and billions of dollars.</p>
+      <p>The frameworks (SWOT, VRIO, business-level strategy) aren't just academic boxes to tick. They're lenses that force you to ask: <em>what's actually hard to replicate here?</em> And if the honest answer is "not much," that's the most important strategic insight of all.</p>
+    </div>
+
+    <!-- Final summary chart -->
+    <div class="chart-wrap" style="margin-top:2rem;">
+      <h4>Strategic Framework Summary — All Three Companies</h4>
+      <p class="chart-subtitle">Relative competitive strength across key strategic dimensions (illustrative, 0–10)</p>
+      <canvas id="summaryChart" height="160"></canvas>
+    </div>
+  </div>
+
+</main>
 
 <!-- FOOTER -->
 <footer>
-  <p>Strategic Analysis in Action &nbsp;·&nbsp; <span>Week 2 Seminar</span> &nbsp;·&nbsp; Tools, Frameworks &amp; Real-World Strategy</p>
-  <p style="margin-top:0.5rem; font-size:0.7rem;">Based on Canal+, Amazon, Walmart &amp; IKEA case studies · Frameworks: SWOT, VRIO, Business-Level Strategy</p>
+  <div class="footer-logo">strat<span>.</span>notes</div>
+  <p>Week 2 Seminar — Strategic Analysis in Action</p>
+  <p style="margin-top:0.4rem;font-size:0.7rem;">Canal+ · Amazon vs Walmart · IKEA &nbsp;·&nbsp; Frameworks: SWOT, VRIO, Business-Level Strategy</p>
 </footer>
+
+<!-- CHARTS JS -->
+<script>
+  const accent1 = '#e85d3a';
+  const accent2 = '#2e6b9e';
+  const accent3 = '#3a8c5c';
+  const accent4 = '#c8820a';
+  const grid = 'rgba(0,0,0,0.06)';
+
+  Chart.defaults.font.family = "'Mulish', sans-serif";
+  Chart.defaults.color = '#6b6760';
+
+  // 1. Canal+ Radar
+  new Chart(document.getElementById('radarChart'), {
+    type: 'radar',
+    data: {
+      labels: ['Brand Strength', 'Content Quality', 'Digital Reach', 'Africa Presence', 'Cost Efficiency', 'Tech Capability'],
+      datasets: [
+        {
+          label: 'Canal+',
+          data: [7.5, 8, 5.5, 8.5, 5, 5],
+          backgroundColor: 'rgba(232,93,58,0.15)',
+          borderColor: accent1,
+          borderWidth: 2,
+          pointBackgroundColor: accent1,
+          pointRadius: 4,
+        },
+        {
+          label: 'Netflix',
+          data: [9, 8.5, 9.5, 4, 7, 9],
+          backgroundColor: 'rgba(46,107,158,0.12)',
+          borderColor: accent2,
+          borderWidth: 2,
+          pointBackgroundColor: accent2,
+          pointRadius: 4,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 12 } } },
+      scales: {
+        r: {
+          min: 0, max: 10,
+          ticks: { stepSize: 2, font: { size: 10 } },
+          grid: { color: grid },
+          pointLabels: { font: { size: 10, weight: '600' } }
+        }
+      }
+    }
+  });
+
+  // 2. Canal+ Pie
+  new Chart(document.getElementById('canalPie'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Traditional Pay-TV', 'Streaming (MyCANAL)', 'Africa Markets', 'Sports Rights', 'Production (StudioCanal)'],
+      datasets: [{
+        data: [38, 22, 18, 14, 8],
+        backgroundColor: [accent1, accent2, accent3, accent4, '#b8b0a4'],
+        borderWidth: 0,
+        hoverOffset: 6,
+      }]
+    },
+    options: {
+      responsive: true,
+      cutout: '62%',
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { size: 10 }, padding: 10, boxWidth: 12 } }
+      }
+    }
+  });
+
+  // 3. Revenue Bar (Amazon vs Walmart)
+  new Chart(document.getElementById('revenueBar'), {
+    type: 'bar',
+    data: {
+      labels: ['E-commerce', 'Physical Retail', 'Cloud/Tech', 'Advertising', 'Subscriptions'],
+      datasets: [
+        {
+          label: 'Amazon',
+          data: [231, 21, 91, 47, 40],
+          backgroundColor: '#ff9900cc',
+          borderRadius: 4,
+        },
+        {
+          label: 'Walmart',
+          data: [53, 441, 0, 3, 2],
+          backgroundColor: '#0071CEcc',
+          borderRadius: 4,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 12 } } },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+        y: {
+          grid: { color: grid },
+          ticks: { font: { size: 10 }, callback: v => '$' + v + 'bn' }
+        }
+      }
+    }
+  });
+
+  // 4. VRIO Bar
+  new Chart(document.getElementById('vrioBar'), {
+    type: 'bar',
+    data: {
+      labels: ['Value', 'Rarity', 'Imitability', 'Organisation'],
+      datasets: [
+        {
+          label: 'Amazon',
+          data: [9, 8.5, 9, 8],
+          backgroundColor: '#ff9900cc',
+          borderRadius: 4,
+        },
+        {
+          label: 'Walmart',
+          data: [8.5, 8, 8, 8.5],
+          backgroundColor: '#0071CEcc',
+          borderRadius: 4,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      indexAxis: 'y',
+      plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 12 } } },
+      scales: {
+        x: { min: 0, max: 10, grid: { color: grid }, ticks: { font: { size: 10 } } },
+        y: { grid: { display: false }, ticks: { font: { size: 11, weight: '600' } } }
+      }
+    }
+  });
+
+  // 5. IKEA Radar
+  new Chart(document.getElementById('ikeaRadar'), {
+    type: 'radar',
+    data: {
+      labels: ['Cost Efficiency', 'Design Quality', 'Sustainability', 'Customer Exp.', 'Global Scale', 'Brand Trust'],
+      datasets: [
+        {
+          label: 'IKEA',
+          data: [9, 8, 8.5, 8, 9, 8.5],
+          backgroundColor: 'rgba(0,107,63,0.12)',
+          borderColor: '#006b3f',
+          borderWidth: 2.5,
+          pointBackgroundColor: '#006b3f',
+          pointRadius: 4,
+        },
+        {
+          label: 'Typical Furniture Retailer',
+          data: [5, 5, 4, 5, 4, 5],
+          backgroundColor: 'rgba(200,130,10,0.1)',
+          borderColor: accent4,
+          borderWidth: 2,
+          borderDash: [5,4],
+          pointBackgroundColor: accent4,
+          pointRadius: 3,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 12 } } },
+      scales: {
+        r: {
+          min: 0, max: 10,
+          ticks: { stepSize: 2, font: { size: 10 } },
+          grid: { color: grid },
+          pointLabels: { font: { size: 10, weight: '600' } }
+        }
+      }
+    }
+  });
+
+  // 6. IKEA Cost Savings Bar
+  new Chart(document.getElementById('ikeaCost'), {
+    type: 'bar',
+    data: {
+      labels: ['Flat-pack Design', 'Global Sourcing', 'Self-Service Store', 'Efficient Logistics', 'Automation'],
+      datasets: [{
+        label: '% Cost Reduction vs Industry Avg',
+        data: [22, 18, 15, 14, 10],
+        backgroundColor: [
+          'rgba(0,107,63,0.75)',
+          'rgba(0,107,63,0.65)',
+          'rgba(0,107,63,0.55)',
+          'rgba(0,107,63,0.45)',
+          'rgba(0,107,63,0.35)',
+        ],
+        borderRadius: 4,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { size: 9.5 } } },
+        y: {
+          grid: { color: grid },
+          ticks: { font: { size: 10 }, callback: v => v + '%' }
+        }
+      }
+    }
+  });
+
+  // 7. Summary Chart
+  new Chart(document.getElementById('summaryChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Brand Strength', 'Technology', 'Cost Position', 'Differentiation', 'Sustainability', 'Market Reach'],
+      datasets: [
+        {
+          label: 'Canal+',
+          data: [7.5, 5, 5.5, 7, 6, 7],
+          backgroundColor: accent1 + 'cc',
+          borderRadius: 3,
+        },
+        {
+          label: 'Amazon',
+          data: [8.5, 9.5, 7, 8.5, 6, 9],
+          backgroundColor: '#ff9900cc',
+          borderRadius: 3,
+        },
+        {
+          label: 'Walmart',
+          data: [8, 7, 9, 7, 7, 8.5],
+          backgroundColor: '#0071CEcc',
+          borderRadius: 3,
+        },
+        {
+          label: 'IKEA',
+          data: [8.5, 6.5, 9, 8.5, 8.5, 8],
+          backgroundColor: '#006b3fcc',
+          borderRadius: 3,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 14, boxWidth: 14 } } },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { size: 10.5 } } },
+        y: {
+          min: 0, max: 10,
+          grid: { color: grid },
+          ticks: { font: { size: 10 } }
+        }
+      }
+    }
+  });
+</script>
 
 </body>
 </html>
